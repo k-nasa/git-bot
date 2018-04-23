@@ -1,5 +1,15 @@
 class ApplicationController < ActionController::Base
   def callback
+    req_body = request.body.read
+    events = client.parse_events_from(req_body)
+
+    events.each do |event|
+      case event
+      when Line::Bot::Event::Message
+        test_message = { type: :text, text: event.message['text'] }
+        client.reply_message(event['replyToken'], test_message)
+      end
+    end
   end
 
   private
