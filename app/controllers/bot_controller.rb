@@ -14,6 +14,8 @@ class BotController < ApplicationController
         client.reply_message(event['replyToken'], test_message)
       end
     end
+
+    head :ok # 応答ステータスに200を設定
   end
 
   private
