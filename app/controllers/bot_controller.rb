@@ -28,6 +28,18 @@ class BotController < ApplicationController
     end
   end
 
+  def fetch_github_contributions_data
+    uri = URI.parse('https://github.com/users/k-nasa/contributions') # とりあえず自分ので固定
+    Net::HTTP.get(uri)
+  end
+
+  def github_contributions_data
+    doc = Nokogiri::HTML.parse(fetch_github_contributions_data)
+    doc = doc.xpath("//rect[@data-date='#{Time.zone.today.to_s}']") # 今日の分に絞り込む
+    doc = doc.first # データが１つだけのArrayになっているので最初だけを取り出す
+    doc.attribute('data-count').value.to_i
+  end
+
   def urge_work
     client.push(USERID, { type: :text, message: '今日は怠けますか？' }) unless github_contributions_data.zero?
   end
