@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  post '/callback' => 'application#callback'
-  get '/callback' => 'application#test'
+  post '/callback' => 'bot#callback'
+  get '/callback' => 'bot#test'
 end
