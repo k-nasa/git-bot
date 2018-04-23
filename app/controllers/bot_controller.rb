@@ -3,10 +3,6 @@ class BotController < ApplicationController
 
   protect_from_forgery except: [:callback]
 
-  def test
-    render plain: 'hgeohgoe'
-  end
-
   def callback
     req_body = request.body.read
     events = client.parse_events_from(req_body)
