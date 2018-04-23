@@ -2,6 +2,7 @@ class BotController < ApplicationController
   require 'line/bot'
 
   protect_from_forgery except: [:callback]
+  USERID = 'Ucb394d258cf3ea084cddfa544fd05382' # とりあえず自分の固定
 
   def callback
     req_body = request.body.read
@@ -25,5 +26,9 @@ class BotController < ApplicationController
       config.channel_secret = ENV['LINE_CHANNEL_SECRET']
       config.channel_token = ENV['LINE_CHANNEL_TOKEN']
     end
+  end
+
+  def urge_work
+    client.push(USERID, { type: :text, message: '今日は怠けますか？' }) unless github_contributions_data.zero?
   end
 end
