@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  require 'line/bot'
+
+
   def callback
     req_body = request.body.read
     events = client.parse_events_from(req_body)
@@ -20,5 +23,4 @@ class ApplicationController < ActionController::Base
       config.channel_token = ENV['LINE_CHANNEL_TOKEN']
     end
   end
-
 end
