@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery except: [:callback]
 
+  def test
+    render text: 'hgeohgeo'
+  end
+
   def callback
     req_body = request.body.read
     events = client.parse_events_from(req_body)
