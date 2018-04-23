@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   require 'line/bot'
 
+  protect_from_forgery except: [:callback]
 
   def callback
     req_body = request.body.read
