@@ -41,6 +41,6 @@ class BotController < ApplicationController
   end
 
   def urge_work
-    client.push(USERID, { type: :text, message: '今日は怠けますか？' }) unless github_contributions_data.zero?
+    client.push_message(USERID, { type: :text, message: '今日は怠けますか？' }) unless github_contributions_data.zero?
   end
 end
