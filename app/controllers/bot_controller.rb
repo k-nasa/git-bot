@@ -16,7 +16,7 @@ class BotController < ApplicationController
       end
     end
 
-    head :ok # 応答ステータスに200を設定
+    head :ok
   end
 
   private
@@ -35,8 +35,8 @@ class BotController < ApplicationController
 
   def github_contributions_data
     doc = Nokogiri::HTML.parse(fetch_github_contributions_data)
-    doc = doc.xpath("//rect[@data-date='#{Time.zone.today.to_s}']") # 今日の分に絞り込む
-    doc = doc.first # データが１つだけのArrayになっているので最初だけを取り出す
+    doc = doc.xpath("//rect[@data-date='#{Time.zone.today.to_s}']")
+    doc = doc.first
     doc.attribute('data-count').value.to_i
   end
 
